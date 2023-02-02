@@ -1,21 +1,16 @@
 package com.api.demo.exception;
 
 
-import javax.validation.ConstraintViolation;
+import org.springframework.validation.ObjectError;
+
 import javax.validation.ConstraintViolationException;
-import java.util.Set;
+import java.util.List;
 
-public class UserApiException extends ConstraintViolationException {
+public class UserApiException extends RuntimeException{
 
-    public UserApiException(String message, Set<? extends ConstraintViolation<?>> constraintViolations) {
-        super(message, constraintViolations);
+    public UserApiException(List<ObjectError> message,Throwable err) {
     }
 
-    public static class UserIsNotFrench extends Throwable {
-        UserIsNotFrench(long id) {
-            super("User residence is not France " + id);
-        }
-    }
 
     public static class UserIsUnder18 extends Throwable {
         UserIsUnder18(long birthDate) {

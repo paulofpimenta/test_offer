@@ -3,9 +3,8 @@ package com.api.demo.validation;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 
 public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNumberIsFrench, String> {
@@ -13,8 +12,8 @@ public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNu
     private String message;
 
     @Override
-    public void initialize(final PhoneNumberIsFrench constraintAnnotation) {
-        this.message = constraintAnnotation.message();
+    public void initialize(final PhoneNumberIsFrench phoneNumberIsFrench) {
+        this.message = phoneNumberIsFrench.message();
     }
 
     @Override

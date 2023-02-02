@@ -2,17 +2,21 @@ package com.api.demo.validation;
 
 
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
 import java.lang.annotation.*;
 
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+@Target({ FIELD,TYPE,PARAMETER,METHOD })
+@Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = LivesInFranceValidator.class)
-@Target({ElementType.METHOD,ElementType.FIELD,ElementType.ANNOTATION_TYPE,ElementType.CONSTRUCTOR,ElementType.PARAMETER,ElementType.TYPE_USE})
-@Retention(RetentionPolicy.RUNTIME)
 public @interface LivesInFrance {
-    String message() default "The user residence is not France";
+    String message() default "The user's residenWWce is not France";
 
     Class<?>[] groups() default {};
 

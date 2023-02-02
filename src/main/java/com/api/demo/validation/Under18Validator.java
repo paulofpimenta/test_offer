@@ -1,9 +1,10 @@
 package com.api.demo.validation;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -16,8 +17,8 @@ public class Under18Validator implements ConstraintValidator<Under18, String> {
     private String message;
 
     @Override
-    public void initialize(final Under18 constraintAnnotation) {
-        this.message = constraintAnnotation.message();
+    public void initialize(final Under18 under18) {
+        this.message = under18.message();
     }
 
     @Override

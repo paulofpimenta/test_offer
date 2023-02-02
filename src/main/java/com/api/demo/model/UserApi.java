@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 
-
-
 @Document("users")
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 //@JsonSerialize(using = UserApiSerializer.class)
 public class UserApi {
 
@@ -34,7 +34,7 @@ public class UserApi {
     @JsonProperty("country_of_residence")
     @Field("country_of_residence")
     @NotEmpty(message = "User's country of residence can not be empty")
-    @LivesInFrance()
+    @LivesInFrance(message= "User must have residence in France")
     private String countryOfResidence;
 
     @Field("phone_number")
@@ -46,6 +46,15 @@ public class UserApi {
     @JsonProperty("gender")
     @Size(min = 0, max = 1,message = "Invalid gender value. Must be 'M' or 'F'")
     private String gender;
+
+    public UserApi(String name, String birthDate, String countryOfResidence, String phoneNumber,String gender) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.countryOfResidence = countryOfResidence;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+    }
+
     public String getId() {
         return id;
     }
