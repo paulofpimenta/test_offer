@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
@@ -42,9 +43,9 @@ public class UserController {
 
     @Operation(summary = "Adds a user in the API Demo")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201 ", description = "User was successfully created ",
+            @ApiResponse(responseCode = "201", description = "User was successfully created ",
                     content = { @Content(mediaType = "application/json",schema = @Schema(implementation = UserApi.class)) }),
-            @ApiResponse(responseCode = "422 ", description = "User cannot be created",
+            @ApiResponse(responseCode = "400", description = "User cannot be created",
                     content = @Content)
     })
     @PostMapping(value = "/add", consumes = { "application/json"},produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,33 +59,33 @@ public class UserController {
 
     @Operation(summary = "Find a user by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "302  ", description = "A user was found",
+            @ApiResponse(responseCode = "200  ", description = "A user was found",
                     content = { @Content(mediaType = "application/json",schema = @Schema(implementation = UserApi.class)) }),
-            @ApiResponse(responseCode = "422 ", description = "User could not be found with the provided id",
+            @ApiResponse(responseCode = "404 ", description = "User could not be found with the provided id",
                     content = @Content)
     })
-
     @GetMapping(value = "/get/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUserById( @Parameter( name = "id",required = true, description = "The user's id")
-                                              @PathVariable("id") String id) throws JsonProcessingException {
+                                              @PathVariable("id") String id) {
         Optional <UserApi> userFound = userService.getUserApiDetails(id);
-        String message = "User found with ID " + "'" + id + "'";
-        InfoDetails infoDetails = new InfoDetails(HttpStatus.FOUND.value(),message,Timestamp.from(Instant.now()),userFound);
-        return new ResponseEntity<InfoDetails>(infoDetails,HttpStatus.FOUND);
+        String message = userFound.isEmpty() ? "User not found" : "User found with ID " + "'" + id + "'";
+        HttpStatus statusCode = userFound.isEmpty() ? HttpStatus.NOT_FOUND :  HttpStatus.OK;
+        InfoDetails infoDetails = new InfoDetails(statusCode.value(),message,Timestamp.from(Instant.now()),userFound);
+        return new ResponseEntity<InfoDetails>(infoDetails,statusCode);
     }
     @Operation(summary = "Show all users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "302", description = "A user or more found",
+            @ApiResponse(responseCode = "200", description = "A user or more found",
                     content = { @Content(mediaType = "application/json",schema = @Schema(implementation = UserApi.class)) }),
-            @ApiResponse(responseCode = "422", description = "No users found in the database",
+            @ApiResponse(responseCode = "200", description = "No users found in the database",
                     content = @Content)
     })
     @GetMapping(value = "/show_all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> showAllUsers() {
         List<UserApi> usersFound = userService.showAll();
         String message = usersFound.size() + " user(s) found in the database";
-        InfoDetails infoDetails = new InfoDetails(HttpStatus.FOUND.value(),message,Timestamp.from(Instant.now()),usersFound);
-        return new ResponseEntity<InfoDetails>(infoDetails,HttpStatus.FOUND);
+        InfoDetails infoDetails = new InfoDetails(HttpStatus.OK.value(),message,Timestamp.from(Instant.now()),usersFound);
+        return new ResponseEntity<InfoDetails>(infoDetails,HttpStatus.OK);
     }
 
     @RequestMapping("/")

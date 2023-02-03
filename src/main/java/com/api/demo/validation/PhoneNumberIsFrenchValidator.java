@@ -5,6 +5,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.SneakyThrows;
 
 
 public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNumberIsFrench, String> {
@@ -20,14 +21,16 @@ public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNu
     public boolean isValid(String phoneNumber,
                            ConstraintValidatorContext cxt) {
         if (!(phoneNumber == null)) {
-            try {
                 PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-                Phonenumber.PhoneNumber number = phoneUtil.parse(phoneNumber, "FR");
-                return phoneUtil.isValidNumberForRegion(number, "FR");
+                Phonenumber.PhoneNumber number = null;
+            try {
+                number = phoneUtil.parse(phoneNumber, "FR");
             } catch (NumberParseException e) {
-                throw new RuntimeException("Could not validate phone number: " + e);
+                throw new RuntimeException(e);
             }
+            return phoneUtil.isValidNumberForRegion(number, "FR");
         } else {
+            // Phone number is not mandatory
             return true;
         }
     }
