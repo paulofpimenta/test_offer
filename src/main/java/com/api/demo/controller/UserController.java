@@ -4,6 +4,7 @@ package com.api.demo.controller;
 import com.api.demo.model.InfoDetails;
 import com.api.demo.model.UserApi;
 import com.api.demo.services.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -81,5 +82,10 @@ public class UserController {
         String message = usersFound.size() + " user(s) found in the database";
         InfoDetails infoDetails = new InfoDetails(HttpStatus.OK.value(),message,Timestamp.from(Instant.now()),usersFound);
         return new ResponseEntity<InfoDetails>(infoDetails,HttpStatus.OK);
+    }
+    @Hidden
+    @RequestMapping("/")
+    public @ResponseBody String greeting() {
+        return "Welcome to the user demo API";
     }
 }
