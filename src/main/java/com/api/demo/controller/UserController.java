@@ -1,18 +1,15 @@
 package com.api.demo.controller;
 
 
-import com.api.demo.exception.UserApiException;
 import com.api.demo.model.InfoDetails;
 import com.api.demo.model.UserApi;
 import com.api.demo.services.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
 
-import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -86,10 +81,5 @@ public class UserController {
         String message = usersFound.size() + " user(s) found in the database";
         InfoDetails infoDetails = new InfoDetails(HttpStatus.OK.value(),message,Timestamp.from(Instant.now()),usersFound);
         return new ResponseEntity<InfoDetails>(infoDetails,HttpStatus.OK);
-    }
-
-    @RequestMapping("/")
-    public @ResponseBody String greeting() {
-        return "Welcome to the user demo API";
     }
 }

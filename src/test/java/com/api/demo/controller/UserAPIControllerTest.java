@@ -82,7 +82,7 @@ public class UserAPIControllerTest {
                         .andExpect(status().isBadRequest());
     }
     @Test
-    public void userWith4VioletedContraintsIsAddedReturns4Errors() throws Exception {
+    public void userWith4ViolatedConstraintsIsAddedReturns4Errors() throws Exception {
         UserApi user = new UserApi("Peter","12/10/2020","UK","22232310-23323","FR");
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String userAsJson = ow.writeValueAsString(user);
