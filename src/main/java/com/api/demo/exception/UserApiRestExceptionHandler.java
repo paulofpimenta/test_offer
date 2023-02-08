@@ -20,7 +20,6 @@ public class UserApiRestExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<ErrorDetails> handleConstraintViolation(final ConstraintViolationException ex) {
-        //logger.info(ex.getClass().getName());
         final List<String> errors = ex.getConstraintViolations().stream().map(error->error.getMessage()).collect(Collectors.toList());
         final ErrorDetails apiError = new ErrorDetails(HttpStatus.BAD_REQUEST.value(),"User constraints violated", errors, Timestamp.from(Instant.now()));
         return new ResponseEntity<ErrorDetails>(apiError, new HttpHeaders(), apiError.getStatus());
@@ -28,7 +27,6 @@ public class UserApiRestExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler({ UserApiException.class })
     public ResponseEntity<ErrorDetails> handleUserNotFound(final UserApiException ex) {
-        //logger.info(ex.getClass().getName());
         final List<String> errors = ex.getMessage().lines().toList();
         final ErrorDetails apiError = new ErrorDetails(HttpStatus.NOT_FOUND.value(),"User not found", errors, Timestamp.from(Instant.now()));
         return new ResponseEntity<ErrorDetails>(apiError, new HttpHeaders(), apiError.getStatus());

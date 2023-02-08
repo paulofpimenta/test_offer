@@ -1,16 +1,19 @@
-package com.api.demo.validation;
+package com.api.demo.validators;
 
+import com.api.demo.annotations.PhoneNumberIsFrench;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.SneakyThrows;
 
 
 public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNumberIsFrench, String> {
 
     private String message;
+
+    private PhoneNumber number;
+
 
     @Override
     public void initialize(final PhoneNumberIsFrench phoneNumberIsFrench) {
@@ -20,9 +23,8 @@ public class PhoneNumberIsFrenchValidator implements ConstraintValidator<PhoneNu
     @Override
     public boolean isValid(String phoneNumber,
                            ConstraintValidatorContext cxt) {
-        if (!(phoneNumber == null)) {
+        if (phoneNumber != null) {
                 PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-                Phonenumber.PhoneNumber number = null;
             try {
                 number = phoneUtil.parse(phoneNumber, "FR");
             } catch (NumberParseException e) {

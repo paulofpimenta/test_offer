@@ -1,9 +1,9 @@
-package com.api.demo.validation;
+package com.api.demo.validators;
 
+import com.api.demo.annotations.Under18;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class Under18Validator implements ConstraintValidator<Under18, String> {
         simpleDateFormat.setLenient(false);
         Date dateNow = Date.from(Instant.now());
 
-        if (!(birthDate == null)) {
+        if (birthDate != null) {
             try
             {
                 Date birthDateAsDate = simpleDateFormat.parse(birthDate);

@@ -1,12 +1,11 @@
 package com.api.demo.model;
 
 
-import com.api.demo.validation.LivesInFrance;
-import com.api.demo.validation.PhoneNumberIsFrench;
-import com.api.demo.validation.Under18;
+import com.api.demo.annotations.LivesInFrance;
+import com.api.demo.annotations.PhoneNumberIsFrench;
+import com.api.demo.annotations.Under18;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,10 +18,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("users")
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonSerialize(using = UserApiSerializer.class)
 public class UserApi {
 
     @Id
+    @JsonIgnore
     private String id;
     @NotEmpty(message = "User's name can not be empty")
     private String name;

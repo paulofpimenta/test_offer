@@ -1,6 +1,7 @@
-package com.api.demo.validation;
+package com.api.demo.validators;
 
 
+import com.api.demo.annotations.LivesInFrance;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

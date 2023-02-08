@@ -92,6 +92,5 @@ public class UserAPIControllerTest {
                         .andExpect(status().isBadRequest())
                         .andExpect(jsonPath("$.errors", hasSize(4)));
     }
-
 }
 
