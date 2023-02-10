@@ -33,4 +33,28 @@ and an OpenAPI to document and test the entry points will be available at :
 http://localhost:8080/api/v1/swagger-ui/index.html
 ```
 
-If you wish to check on created users, the application's embedded MongoDB is set to listen on default port `27017`. 
+## 2. PostMan Screenshot tests
+
+### 2.1. Adding an user :
+
+![Add user](images/postman_add.png)
+
+
+### 2.2. Finding all users :
+
+![Find all users](images/find_all.png)
+
+
+### 2.3. Finding one user :
+
+![Find one user](images/find_one.png)
+
+### 2.4. User not found :
+
+![User not found](images/user_not_found.png)
+
+### 2.5. Constraints violated :
+
+![Contraints violated](images/contraints_violated.png)
+
+

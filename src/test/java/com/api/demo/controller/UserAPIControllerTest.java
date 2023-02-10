@@ -2,6 +2,7 @@ package com.api.demo.controller;
 
 import com.api.demo.model.UserApi;
 import com.api.demo.services.UserService;
+import com.api.demo.services.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,7 +33,7 @@ public class UserAPIControllerTest {
     ObjectMapper mapper;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     public void testMockMVC() throws Exception {
