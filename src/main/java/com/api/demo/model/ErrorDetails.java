@@ -2,7 +2,6 @@ package com.api.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 import java.util.List;
